@@ -5,6 +5,9 @@ on: [push]
 
 jobs:
   build:
+    strategy:
+      matrix:
+        pyversion: ['3.10.12','3.11']
 
     runs-on: ubuntu-latest
 
@@ -48,3 +51,7 @@ jobs:
       with:
           project-token: ${{ secrets.CODACY_PROJECT_TOKEN }}
           coverage-reports: decide/coverage.xml 
+    - name: Set up Python ${{matrix.pyversion}}
+      uses: actions/setup-python@v4
+      with:
+        python-version: ${{matrix.pyversion}}
